@@ -62,9 +62,9 @@ namespace :custom do
 end
 
 namespace :post do
-  task :kick
+  task :kick do
     desc "restart the application daemon"
-    run("sudo restart sails.test")
+    run("sudo restart appdaemon-sails.test")
   end
 end
 
@@ -80,7 +80,7 @@ require 'capistrano/ext/multistage' #yes. First we set and then we require.
 
 # Remove older realeases. By default, it will remove all older then the 5th.
 after :deploy, 'deploy:cleanup'
-after :deploy:cleanup, :post:kick
+after 'deploy:cleanup', 'post:kick'
 
 #############################################################
 # Get instances from ec2 loadbalancer
